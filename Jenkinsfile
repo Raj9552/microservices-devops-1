@@ -43,7 +43,7 @@ pipeline {
                     script{
                         withCredentials([string(credentialsId: 'DockerHubPass', variable: 'DockerHubPass')]) {
                         sh 'docker login -u rajdeshmukh --password ${DockerHubPass}' }
-                        sh 'docker push rajdeshmukh/newsread-news && docker push kelvinskell/newsread-customize'
+                        sh 'docker push rajdeshmukh/newsread-news && docker push rajdeshmukh/newsread-customize'
                }
             }
                  
@@ -52,8 +52,8 @@ pipeline {
         //stage('Trivy scan on Docker images'){
           //  steps{
             //     sh 'TMPDIR=/home/jenkins'
-              //   sh 'trivy image kelvinskell/newsread-news:latest'
-                // sh 'trivy image kelvinskell/newsread-customize:latest'
+              //   sh 'trivy image rajdeshmukh/newsread-news:latest'
+                // sh 'trivy image rajdeshmukh/newsread-customize:latest'
         //}
        
    // }
