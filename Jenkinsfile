@@ -17,16 +17,16 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script{
-                    sh 'docker build -t kelvinskell/newsread-customize customize-service/'
-                    sh 'docker build -t kelvinskell/newsread-news news-service/'
+                    sh 'docker build -t rajdeshmukh/newsread-customize customize-service/'
+                    sh 'docker build -t rajdeshmukh/newsread-news news-service/'
             }
         }
     }
         stage('Containerize And Test') {
             steps {
                 script{
-                    sh 'docker run -d  --name customize-service -e FLASK_APP=run.py kelvinskell/newsread-customize && sleep 10 && docker logs customize-service && docker stop customize-service'
-                    sh 'docker run -d  --name news-service -e FLASK_APP=run.py kelvinskell/newsread-news && sleep 10 && docker logs news-service && docker stop news-service'
+                    sh 'docker run -d  --name customize-service -e FLASK_APP=run.py rajdeshmukh/newsread-customize && sleep 10 && docker logs customize-service && docker stop customize-service'
+                    sh 'docker run -d  --name news-service -e FLASK_APP=run.py rajdeshmukh/newsread-news && sleep 10 && docker logs news-service && docker stop news-service'
                 }
             }
         }
@@ -34,8 +34,8 @@ pipeline {
             steps {
                     script{
                         withCredentials([string(credentialsId: 'DockerHubPass', variable: 'DockerHubPass')]) {
-                        sh 'docker login -u kelvinskell --password ${DockerHubPass}' }
-                        sh 'docker push kelvinskell/newsread-news && docker push kelvinskell/newsread-customize'
+                        sh 'docker login -u rajdeshmukh --password ${DockerHubPass}' }
+                        sh 'docker push rajdeshmukh/newsread-news && docker push kelvinskell/newsread-customize'
                }
             }
                  
