@@ -1,7 +1,15 @@
 pipeline {
     agent any
     
-   stages{
+    
+    stages{
+        stage('SCA with OWASP Dependency Check') {
+        steps {
+            dependencyCheck additionalArguments: '''--format HTML
+            ''', odcInstallation: 'DP-Check'
+            }
+    }
+
         stage('SonarQube Analysis') {
       steps {
         script {
